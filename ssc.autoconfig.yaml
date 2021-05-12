@@ -1,0 +1,10 @@
+appProperties:
+  host.validation: false
+
+datasourceProperties:
+  db.username: 'fortify'
+  db.password: 'fortify'
+  db.driver.class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  db.dialect: com.fortify.manager.util.hibernate.SQLServerDialect
+  db.like.specialCharacters: '%_{'
+  jdbc.url: 'jdbc:sqlserver://3.121.225.139:1433;database=ssc;sendStringParametersAsUnicode=false'

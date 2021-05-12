@@ -1,0 +1,108 @@
+# Custom values for ssc chart.
+# This is a YAML-formatted file.
+
+
+# image is a map of the global Kubernetes image settings
+image:
+
+  # repositoryPrefix is a prefix for SSC images and can be used to pull images from a private registry
+  repositoryPrefix: "fortifydocker/"
+
+  #tag: 20.2.0.0149.0001
+
+  # pullPolicy is Kubernetes image pull policy, supported values are Always, IfNotPresent, and Never
+  pullPolicy: IfNotPresent
+
+
+# imagePullSecrets is a list of Kubernetes image pull secrets, for details, see the Kubernetes documentation
+# (https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+imagePullSecrets:
+  - name: regcred
+
+# service is a map of the Kubernetes service resource options used to expose the SSC service
+service:
+
+  # type is Kubernetes service type (required), supported values" "ClusterIP", "NodePort", "LoadBalancer"
+  type: LoadBalancer
+
+  # httpPort is an external HTTP port of the service, the meaning depends on selected service type, disabled if empty
+  httpPort: 80
+
+  # httpsPort is an external HTTPS port of the service (required)
+  httpsPort: 443
+
+  # clusterIP is fixed service cluster IP address, if empty, Kubernetes assigns a value
+  clusterIP: ""
+
+  # loadBalancerIP is fixed load balancer IP address, if empty, the Kubernetes cloud provider assigns a value
+  loadBalancerIP: ""
+
+# urlHost is a fully qualified DNS name for externally accessing the application (required)
+urlHost: "ssc.fortifydemo.com"
+
+# jdbcDriverUri is a path to a JDBC driver file or an URL for downloading a JDBC driver (required for Oracle)
+jdbcDriverUri: ""
+
+# httpClientCertificateVerification is configuring HTTPS client certificate verification, supported values: "none", "optional", "required"
+httpClientCertificateVerification: "none"
+
+
+# secretRef is a reference to externally managed Kubernetes secret (required)
+secretRef:
+
+  # name is a name of externally managed Kubernetes secret to be used for configuration (required)
+  name: "sscsecrets"
+
+  # keys is a map of key names for externally managed Kubernetes secret (required)
+  keys:
+
+    # sscLicenseEntry is a key name for a Fortify licence (required)
+    sscLicenseEntry: "fortify.license"
+
+    # sscAutoconfigEntry is a key name for an SSC autoconfig file (required)
+    sscAutoconfigEntry: "ssc.autoconfig.yaml"
+
+    # sscSecretKeyEntry is key name for an SSC secret.key file
+    sscSecretKeyEntry: ""
+
+    # httpCertificateKeystoreFileEntry is a key name for a keystore with certificate and private key for HTTPS (required)
+    httpCertificateKeystoreFileEntry: "keystore.jks"
+
+    # httpCertificateKeystorePasswordEntry is a key name for a password of the HTTPS keystore (required)
+    httpCertificateKeystorePasswordEntry: "keystore-pass"
+
+    # httpCertificateKeystorePasswordEntry is a key name for a password of the HTTPS private key (required)
+    httpCertificateKeyPasswordEntry: "keystore-pass"
+
+    # httpTruststoreFileEntry is a key name for a truststore used by client certificate verification
+    httpTruststoreFileEntry: ""
+
+    # httpTruststoreFileEntry is a key name for a password of the client certificate verification truststore
+    httpTruststorePasswordEntry: ""
+
+    # jvmTruststoreFileEntry is a key name for a JVM truststore
+    jvmTruststoreFileEntry: ""
+
+    # jmvTruststorePasswordEntry is a key name for a password of the JVM truststore
+    jmvTruststorePasswordEntry: ""
+
+
+# persistentVolumeClaim is a set of SSC's persistent volume claim options
+persistentVolumeClaim:
+  storageClassName: "ssc"
+  size: 1Gi
+
+# environment is a list of additional environment variables for the Pod, uses Kubernetes Pod spec syntax
+environment: []
+
+# jvmMaxRAMPercentage is a percentage of memory limit to be used for JVM heap
+jvmMaxRAMPercentage: 86
+
+# resources is Kubernetes Pod resources specification
+resources:
+  limits:
+    cpu: 8
+    memory: 28Gi
+  requests:
+    cpu: 1
+    memory: 7Gi
