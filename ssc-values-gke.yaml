@@ -89,7 +89,7 @@ secretRef:
 
 # persistentVolumeClaim is a set of SSC's persistent volume claim options
 persistentVolumeClaim:
-  storageClassName: "ssc"
+  storageClassName: ""
   size: 1Gi
 
 # environment is a list of additional environment variables for the Pod, uses Kubernetes Pod spec syntax
